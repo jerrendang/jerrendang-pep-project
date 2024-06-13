@@ -1,5 +1,6 @@
 package Controller;
 
+import Model.Account;
 import io.javalin.Javalin;
 import io.javalin.http.Context;
 
@@ -16,6 +17,8 @@ public class SocialMediaController {
      */
     public Javalin startAPI() {
         Javalin app = Javalin.create();
+        app.post("/register", this::registrationHandler);
+
         app.get("example-endpoint", this::exampleHandler);
 
         return app;
@@ -29,5 +32,8 @@ public class SocialMediaController {
         context.json("sample text");
     }
 
+    private void registrationHandler(Context ctx){
+        // check body for username, password, and if exists
+    }
 
 }
