@@ -25,7 +25,7 @@ public class AccountDAO{
 
             psmt.executeUpdate();
 
-            Account newAccount = this.getAccountByUsername(account.getUsername());
+            Account newAccount = this.getAccount(account);
             return newAccount;
         } catch(SQLException e){
             System.out.println(e);
@@ -58,14 +58,15 @@ public class AccountDAO{
         return null;
     }
 
-    public Account getAccountByUsername(String username){
+    public Account getAccount(Account account){
         Connection conn = ConnectionUtil.getConnection();
 
         try{
-            String sql = "select * from account where username=?;";
+            String sql = "select * from account where username=? and password=?;";
             PreparedStatement psmt = conn.prepareStatement(sql);
 
-            psmt.setString(1, username);
+            psmt.setString(1, account.getUsername());
+            psmt.setString(2, account.getPassword());
 
             ResultSet rs = psmt.executeQuery();
 
